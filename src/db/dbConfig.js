@@ -2,9 +2,7 @@ import mongoose from 'mongoose';
 
 export const connectToDB =  ()=> {
     try {
-        mongoose.connect(
-          `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASSWORD}@practiceproject.bxk1syw.mongodb.net/${process.env.DB}?retryWrites=true&w=majority&appName=PracticeProject`
-        );
+        mongoose.connect(process.env.DB_URI);
         const connection = mongoose.connection;
         connection.on("coonected", () => {
           console.log("MongoDb connected successfully===>", err);

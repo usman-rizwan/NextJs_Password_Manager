@@ -1,9 +1,9 @@
-
+import Navbar from "@/components/ui/Navbar";
 
 const DashboardPage = () => {
   return (
     <div>
-      WELCOME , USer
+    <Navbar/>
     </div>
   )
 }

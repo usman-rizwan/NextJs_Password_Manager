@@ -15,8 +15,9 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import axios from "axios";
-import  {useState}  from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -44,10 +45,12 @@ const LoginForm = () => {
       const response = await axios.post("/api/users/login", values);
       console.log("response===>", response.data);
       form.reset({ email: "" }, { password: "" });
-        setLoading(false);
-        router.push("/dashboard");
+      setLoading(false);
+      toast.success("User logged in successfully");
+      router.push("/dashboard");
     } catch (error) {
-        setLoading(false);
+      setLoading(false);
+      toast.error("Incorrect Credentials");
       console.log("error===>", error);
     }
     // console.log(values);
@@ -106,7 +109,7 @@ const LoginForm = () => {
                 </Link>
               </span>
             </div>
-            <Button type="submit" className="mt-4" disabled={loading} >
+            <Button type="submit" className="mt-4" disabled={loading}>
               {loading ? "Loading..." : "Login"}
             </Button>
           </form>

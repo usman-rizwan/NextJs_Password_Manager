@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import axios from 'axios'
 import  { useState}  from "react";
 import { useRouter } from 'next/navigation'
-
+import { toast } from "sonner";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -49,10 +49,12 @@ const SignupForm = () => {
       setLoading(true);
       const response = await axios.post("/api/users/signup", values);
       console.log(  "response===>" , response);
+      toast.success("User created successfully");
       setLoading(false);
-      // router.push("/home");
+      router.push("/home");
     } catch (error) {
       setLoading(false);
+      toast.error("Error creating user");
       console.log("error===>" , error.message);
     }
     // connectToDB();
