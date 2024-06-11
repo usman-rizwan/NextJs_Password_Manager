@@ -1,16 +1,16 @@
 "use client"
-import { ModeToggle } from "@/components/ui/ModdleToggle"
+import { ModeToggle } from "@/components/ui/ModdleToggle";
+import { Button } from "@/components/ui/button";
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button} from "@nextui-org/react";
+import Image from 'next/image'
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link} from "@nextui-org/react";
+import Image1 from  '@/assets/logo_black_no_bg.png';
+import logout from "@/helpers/logout";
 
 
-export default function App() {
+export default function NavbarComponent() {
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const menuItems = [
-    "Log Out",
-  ];
-
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>
       <NavbarContent>
@@ -20,7 +20,12 @@ export default function App() {
         />
         <NavbarBrand>
 
-          <p className="font-bold text-inherit">ACME</p>
+        <Image
+      src={Image1}
+      width={500}
+      height={500}
+      alt="Picture of the author"
+    />
         </NavbarBrand>
       </NavbarContent>
 
@@ -43,27 +48,20 @@ export default function App() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
+        <Button type="submit" onClick={logout}>
+              Logout
+            </Button>
         </NavbarItem>
         <NavbarItem>
          <ModeToggle/>
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
-              }
-              className="w-full"
-              href="#"
-              size="lg"
-            >
-              {item}
-            </Link>
+          <NavbarMenuItem key="Logout">
+          <Button type="submit" className="mt-4" onClick={logout}>
+              Logout
+            </Button>
           </NavbarMenuItem>
-        ))}
       </NavbarMenu>
     </Navbar>
   );

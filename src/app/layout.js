@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         <body className={inter.className}>
           <Providers>{children}</Providers>
         </body>
-        <Toaster richColors position="top-right" />
+        <Toaster richColors position="bottom-right" />
       </ThemeProvider>
     </html>
   );
