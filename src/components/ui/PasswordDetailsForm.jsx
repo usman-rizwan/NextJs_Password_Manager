@@ -13,15 +13,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import axios from "axios";
+
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useRouter } from "next/navigation"; 
+import {FaEye, FaEyeSlash } from "react-icons/fa";
 
 const formSchema = z.object({
-    website: z.string().trim().min(3,{
-    message: "Website name is not valid.",
+  website: z.string().trim().min(3, {
+    message: "Atleast 3 characters.",
   }),
   username: z.string().trim().min(3, {
     message: "Username name is not valid.",
@@ -31,53 +30,46 @@ const formSchema = z.object({
   }),
 });
 
-const PasswordDetailsForm = () => {
+const PasswordDetailsForm = ({onSubmitForm}) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const toggleVisibility = () => setIsVisible(!isVisible);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        website: "",
-        username: "",
+      website: "",
+      username: "",
       password: "",
     },
   });
 
-  async function onSubmit(values) {
-    try {
-        console.log(values);
-      //   setLoading(true);
-      //   const response = await axios.post("/api/users/login", values);
-      //   console.log("response===>", response.data);
-      //   form.reset({ email: "" }, { password: "" });
-      //   setLoading(false);
-      //   toast.success("User logged in successfully");
-      //   router.push("/dashboard");
-    } catch (error) {
-      setLoading(false);
-      toast.error("Incorrect Credentials");
-      console.log("error===>", error);
+const onSubmit = async (values)=>{
+  try {
+    console.log(values);
+    if (onSubmitForm) {
+      onSubmitForm(values);
     }
-    // console.log(values);
+  } catch (error) {
+    setLoading(false);
+    console.error("There was a problem:", error);
   }
+}
 
   return (
-    <div className="flex  items-center justify-center  p-4 ">
-      <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6 mt-7">
+    <div className="flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6 mt-5">
         <h1 className="text-2xl mb-6 font-extrabold">Password Manager</h1>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <FormField
               control={form.control}
               name="website"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Website URL</FormLabel>
+                  <FormLabel>Website name or URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the website URL" {...field} />
+                    <Input placeholder="Enter the website name or URL" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -104,11 +96,25 @@ const PasswordDetailsForm = () => {
                   <FormItem className="flex-1">
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Enter your password"
-                        {...field}
-                        type="password"
-                      />
+                      <div className="relative">
+                        <Input
+                          {...field}
+                          placeholder="Enter your password"
+                          type={isVisible ? "text" : "password"}
+                          className="pr-10"
+                        />
+                        <button
+                          type="button"
+                          onClick={toggleVisibility}
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center focus:outline-none"
+                        >
+                          {isVisible ? (
+                            <FaEye  className="text-2xl text-gray-500" />
+                          ) : (
+                            <FaEyeSlash  ocked className="text-2xl text-gray-500" />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

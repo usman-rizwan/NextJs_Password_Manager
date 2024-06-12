@@ -22,7 +22,7 @@ export default function NavbarComponent() {
 
         <Image
       src={Image1}
-      width={500}
+      width={400}
       height={500}
       alt="Picture of the author"
     />
