@@ -23,7 +23,7 @@ export const POST = async (req) => {
     // 2. Check the password
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      return NextResponse.json({ status: 401, message: "Incorrect Password" });
+      return NextResponse.json({ status: 403, message: "Incorrect Password" });
     }
 
     // 3. Generate JWT Token

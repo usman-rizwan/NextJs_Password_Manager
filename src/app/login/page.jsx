@@ -46,8 +46,8 @@ const LoginForm = () => {
       console.log("response===>", response.data);
       form.reset({ email: "" }, { password: "" });
       setLoading(false);
-      toast.success("User logged in successfully");
       router.push("/dashboard");
+      toast.success("User logged in successfully");
     } catch (error) {
       setLoading(false);
       toast.error("Incorrect Credentials");

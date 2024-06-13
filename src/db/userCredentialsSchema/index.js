@@ -13,7 +13,6 @@ const userCredentialsSchema = new Schema(
     website_name: {
       type: String,
       required: true,
-      unique: true,
     },
     website_username : {
       type: String,

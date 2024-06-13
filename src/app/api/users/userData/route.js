@@ -15,8 +15,10 @@ export const POST = async (req) => {
         status: 400,
       });
     }
-    const existingEntry = await UserData.findOne({ website});
+    const existingEntry = await UserData.findOne({ website_name:website });
+    console.log("existingEntry========>" , existingEntry);
     if (existingEntry) {
+      console.log("End response ==========>>><,");
       return NextResponse.json({
         message: "Field already exists",
         status: 400,
@@ -27,10 +29,10 @@ export const POST = async (req) => {
     if (!getToken) {
       return NextResponse.json(
         {
+          status:401,
           message: "Token not found",
           error: "Unauthorized",
         },
-        { status: 401 }
       );
     }
 
@@ -47,13 +49,17 @@ export const POST = async (req) => {
     const response = await saveUserData.save();
     console.log("Usere Data save ===>", response);
 
-    return NextResponse.json({
-      message: "Data added to db",
-      response
-    });
+    return NextResponse.json(
+      {
+        status:200,
+        message: "Data added to db",
+        response,
+      },
+    );
   } catch (error) {
     console.log(error);
     return NextResponse.json({
+      status: 500,
       message: "Error adding data",
       error: error.message,
     });

@@ -30,10 +30,9 @@ const formSchema = z.object({
   }),
 });
 
-const PasswordDetailsForm = ({onSubmitForm}) => {
+const PasswordDetailsForm = ({onSubmitForm , loading , setLoading}) => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -49,6 +48,7 @@ const onSubmit = async (values)=>{
     console.log(values);
     if (onSubmitForm) {
       onSubmitForm(values);
+      form.reset({ website: "" },{ username: "" }, { password: "" });
     }
   } catch (error) {
     setLoading(false);
