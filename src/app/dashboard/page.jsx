@@ -2,31 +2,59 @@
 import Navbar from "@/components/ui/Navbar";
 import PasswordDetailsForm from "@/components/ui/PasswordDetailsForm";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import {FaEye, FaEyeSlash } from "react-icons/fa";
+import { Input } from "@/components/ui/input";
+import PasswordTable from "@/components/ui/PasswordTable";
 
 const DashboardPage = () => {
-  const [formData, setFormData] = useState(null);
+  const searchParams = useSearchParams();
+  const [formData, setFormData] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+  const [isVisible, setIsVisible] = useState(false);
+  const toggleVisibility = () => setIsVisible(!isVisible);
 
+  const searchParamsId = searchParams.get("id");
+
+  const retrieveDataFromDB = async () => {
+    try {
+      const response = await axios.get("/api/users/getData", {
+        params: { id: searchParamsId },
+      });
+      console.log("response===>", response);
+      if (response.status === 200) {
+        setFormData(response.data.data);
+      } else {
+        console.error("Error fetching data", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching data", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (searchParamsId) {
+      retrieveDataFromDB();
+    }
+  }, [searchParamsId]);
 
   const handleFormSubmit = async (data) => {
     try {
-      setFormData(data);
       setLoading(true);
       console.log("Form data received:", data);
       const response = await axios.post("/api/users/userData", data);
       console.log("User Data response == => ", response);
       if (response.data.status === 200) {
         toast.success("Credentials Saved In DB Successfully");
+        setFormData(data);
         setLoading(false);
-      }
-      else if(response.data.status === 400){
-        toast.error("Website name already exist");
+      } else if (response.data.status === 400) {
+        toast.error("Website name already exists");
         setLoading(false);
-      }
-      else {
+      } else {
         toast.error("Error Saving Credentials");
         console.log("error===>", response.data);
         setLoading(false);
@@ -41,13 +69,12 @@ const DashboardPage = () => {
   return (
     <div>
       <Navbar />
-      <PasswordDetailsForm onSubmitForm={handleFormSubmit} loading={loading} setLoading={setLoading} />
-      {formData && (
-        <div className="mt-4 p-4 bg-gray-100 rounded shadow">
-          <h2 className="text-lg font-bold">Form Data</h2>
-          <pre>{JSON.stringify(formData, null, 2)}</pre>
-        </div>
-      )}
+      <PasswordDetailsForm
+        onSubmitForm={handleFormSubmit}
+        loading={loading}
+        setLoading={setLoading}
+      />
+      <PasswordTable formData={formData} />
     </div>
   );
 };

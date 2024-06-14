@@ -34,6 +34,7 @@ export const POST = async (req) => {
 
     // 4. Return Response
     const response = NextResponse.json({
+      status:200,
       message: "User logged in successfully",
       user,
       token,
@@ -45,7 +46,9 @@ export const POST = async (req) => {
     // 6. Return Response after setting the cookie
     return response;
   } catch (error) {
+    console.log("error=-========> " , error.message);
     return NextResponse.json({
+      status:500,
       message: "Error logging in",
       error: error.message,
     });

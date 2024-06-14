@@ -48,10 +48,17 @@ const SignupForm = () => {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", values);
-      console.log(  "response===>" , response);
-      toast.success("User created successfully");
-      setLoading(false);
-      router.push("/home");
+      console.log(  "response===>" , response.data);
+      if(response.data.status === 200){
+        const token = response.data.token;
+        toast.success("User created successfully");
+        setLoading(false);
+        router.push(`/dashboard?id=${token}`);
+      }else{
+        toast.error("Error creating user");
+        console.log("error===>" , response.data.error);
+        setLoading(false);
+      }
     } catch (error) {
       setLoading(false);
       toast.error("Error creating user");
