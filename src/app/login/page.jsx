@@ -45,16 +45,16 @@ const LoginForm = () => {
       const response = await axios.post("/api/users/login", values);
       console.log("response===>", response.data);
       form.reset({ email: "" }, { password: "" });
-    if (response.data.status === 200) {
-      const token = response.data.token;
-      setLoading(false);
-      toast.success("User logged in successfully");
-      router.push(`/dashboard?id=${token}`);
-    } else {
-      setLoading(false);
-      toast.error("Incorrect Credentials");
-      console.log("error===>", response.data);
-    }
+      if (response.data.status === 200) {
+        const token = response.data.token;
+        setLoading(false);
+        toast.success("User logged in successfully");
+        router.push(`/dashboard?id=${token}`);
+      } else {
+        setLoading(false);
+        toast.error("Incorrect Credentials");
+        console.log("error===>", response.data);
+      }
     } catch (error) {
       setLoading(false);
       toast.error("Incorrect Credentials");
@@ -107,7 +107,7 @@ const LoginForm = () => {
             />
             <div>
               <span>
-                Don't have an account?
+                Don&apos;t have an account?
                 <Link
                   href="/signup"
                   className="text-blue-500 font-bold text-lg"
