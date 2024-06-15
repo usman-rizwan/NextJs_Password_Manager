@@ -33,9 +33,6 @@ export const GET = async (req) => {
   }
 
   return NextResponse.json({ status: 200, data: getUserData });
-
-
-    return NextResponse.json({ status: 200, req });
   } catch (error) {
     console.log("Errror in getting DAta ====>", error.message);
     return NextResponse.json({ status: 500, error });

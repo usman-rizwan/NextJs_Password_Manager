@@ -1,61 +1,71 @@
-"use client";
-import { ModeToggle } from "@/components/ui/ModdleToggle";
-import { Button } from "@/components/ui/button";
-import React from "react";
+import Link from "next/link"
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
 import Image from "next/image";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
-  Link,
-} from "@nextui-org/react";
 import Image1 from "@/assets/logo_black_no_bg.png";
+import Image2 from "@/assets/logo_white_no_bg.png";
+import { ModeToggle } from "@/components/ui/ModdleToggle";
 import logout from "@/helpers/logout";
+import { useTheme } from "next-themes";
 
 export default function NavbarComponent() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { theme } = useTheme();
+  const imageSrc = theme === 'light' ? Image1 : Image2;
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>
-      <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
-        <NavbarBrand>
-          <Image
-            src={Image1}
+    <header className="flex h-16 w-full items-center justify-between px-4 md:px-6 border">
+      <Link href="#" className="flex items-center gap-2" prefetch={false}>
+      <Image
+            src={imageSrc}
             width={300}
             height={400}
             alt="Picture of the author"
           />
-        </NavbarBrand>
-      </NavbarContent>
-
-      <NavbarContent
-        className="hidden sm:flex gap-4"
-        justify="center"
-      ></NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
+      </Link>
+      <nav className="hidden items-center gap-6 md:flex">
+        <ModeToggle />
+      <Button type="submit" onClick={logout}>
+            Logout
+          </Button>
+      </nav>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline" size="icon" className="md:hidden">
+            <MenuIcon className="h-6 w-6" />
+            <span className="sr-only">Toggle navigation menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="right">
+          <div className="grid gap-4 p-4">
           <Button type="submit" onClick={logout}>
             Logout
           </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <ModeToggle />
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarMenu>
-        <NavbarMenuItem key="Logout">
-          <Button type="submit" className="mt-4" onClick={logout}>
-            Logout
-          </Button>
-        </NavbarMenuItem>
-      </NavbarMenu>
-    </Navbar>
-  );
+            <div>
+Change Theme→ <span className="mt-10"><ModeToggle  /></span> 
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </header>
+  )
+}
+
+function MenuIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="4" x2="20" y1="12" y2="12" />
+      <line x1="4" x2="20" y1="6" y2="6" />
+      <line x1="4" x2="20" y1="18" y2="18" />
+    </svg>
+  )
 }

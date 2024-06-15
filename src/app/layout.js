@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
-import { Providers } from "./provider.jsx";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import "./globals.css";
 
@@ -13,11 +12,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <ThemeProvider>
-        <body className={inter.className}>
-          <Providers>{children}</Providers>
-        </body>
+    <html lang="en" suppressHydrationWarning>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <body className={inter.className}>{children}</body>
         <Toaster richColors position="bottom-right" />
       </ThemeProvider>
     </html>

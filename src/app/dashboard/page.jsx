@@ -5,29 +5,28 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import {FaEye, FaEyeSlash } from "react-icons/fa";
-import { Input } from "@/components/ui/input";
 import PasswordTable from "@/components/ui/PasswordTable";
 
 const DashboardPage = () => {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const toggleVisibility = () => setIsVisible(!isVisible);
 
   const searchParamsId = searchParams.get("id");
-
+  
   const retrieveDataFromDB = async () => {
     try {
-      const response = await axios.get("/api/users/getData", {
+      const response = await axios.get("/api/data/getData", {
         params: { id: searchParamsId },
       });
       console.log("response===>", response);
-      if (response.status === 200) {
+      if (response.status === 200 && response.data.data.length > 0 )  {
         setFormData(response.data.data);
-      } else {
+      } else if(response.data.data.status === 404){
+        toast.error("No data found");
+        setLoading(false);
+      }
+       else {
         console.error("Error fetching data", response.data);
       }
     } catch (error) {
@@ -45,16 +44,18 @@ const DashboardPage = () => {
     try {
       setLoading(true);
       console.log("Form data received:", data);
-      const response = await axios.post("/api/users/userData", data);
+      const response = await axios.post("/api/data/userData", data);
       console.log("User Data response == => ", response);
       if (response.data.status === 200) {
         toast.success("Credentials Saved In DB Successfully");
-        setFormData(data);
+        setFormData(response.data.data);
         setLoading(false);
       } else if (response.data.status === 400) {
         toast.error("Website name already exists");
         setLoading(false);
-      } else {
+      }
+     
+       else {
         toast.error("Error Saving Credentials");
         console.log("error===>", response.data);
         setLoading(false);
