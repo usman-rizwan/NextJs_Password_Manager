@@ -39,7 +39,7 @@ export default function NavbarComponent() {
           <Button type="submit" onClick={logout}>
             Logout
           </Button>
-            <div>
+            <div className="select-none">
 Change Theme→ <span className="mt-10"><ModeToggle  /></span> 
             </div>
           </div>
