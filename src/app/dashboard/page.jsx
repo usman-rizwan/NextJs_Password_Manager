@@ -48,14 +48,12 @@ const DashboardPage = () => {
       console.log("User Data response == => ", response);
       if (response.data.status === 200) {
         toast.success("Credentials Saved In DB Successfully");
-        setFormData(response.data.data);
+        setFormData([...formData, response.data.response]);
         setLoading(false);
       } else if (response.data.status === 400) {
         toast.error("Website name already exists");
         setLoading(false);
-      }
-     
-       else {
+      } else {
         toast.error("Error Saving Credentials");
         console.log("error===>", response.data);
         setLoading(false);
@@ -66,6 +64,7 @@ const DashboardPage = () => {
       console.log("error===>", error.message);
     }
   };
+  
 
   return (
     <div>

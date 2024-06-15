@@ -1,9 +1,8 @@
 'use client'
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PiEyeClosedBold, PiEyeBold } from "react-icons/pi";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { useTheme } from "next-themes";
 
 const PasswordTable = ({ formData }) => {
@@ -14,7 +13,7 @@ const PasswordTable = ({ formData }) => {
   return (
     <div className={`container mx-auto mt-8 `}>
       <div className="overflow-x-auto">
-        <table className={`min-w-full  ${theme === 'dark' ? 'bg-neutral-800 border-white' : 'bg-white border-gray-200'}`}>
+        <table className={`min-w-full ${theme === 'dark' ? 'bg-neutral-800 border-white' : 'bg-white border-gray-200'}`}>
           <thead>
             <tr>
               <th className={`px-2 py-2 border ${theme === 'dark' ? 'border-white' : 'border-gray-200'}`}>No.</th>
@@ -28,9 +27,9 @@ const PasswordTable = ({ formData }) => {
             {formData.length > 0 ? (
               formData.map((item, index) => (
                 <tr key={item._id}>
-                  <td className={`px-2 py-2 border text-center capitalize ${theme === 'dark' ? 'border-white' : 'border-gray-200'}`}>{index + 1})</td>
+                  <td className={`px-2 py-2 border text-center capitalize ${theme === 'dark' ? 'border-white' : 'border-gray-200'}`}>{index + 1}</td>
                   <td className={`px-4 py-2 border text-center ${theme === 'dark' ? 'border-white' : 'border-gray-200'}`}>
-                    <Link href="fb.com" passHref={true}>{item.website_name}</Link>
+                    <div>{item.website_name}</div>
                   </td>
                   <td className={`px-4 py-2 border text-center ${theme === 'dark' ? 'border-white' : 'border-gray-200'}`}>
                     {item.website_username}
@@ -87,5 +86,4 @@ const PasswordTable = ({ formData }) => {
     </div>
   );
 };
-
 export default PasswordTable;
