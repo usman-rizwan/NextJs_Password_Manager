@@ -1,20 +1,24 @@
+// db/userCredentialsSchema.js
+
 import mongoose from "mongoose";
+
 const { Schema, model, models } = mongoose;
+
 const userCredentialsSchema = new Schema(
   {
     ownerId: {
       type: Schema.Types.ObjectId,
       required: true,
     },
-    ownerName:{
-        type: String,
-        required: true,
+    ownerName: {
+      type: String,
+      required: true,
     },
     website_name: {
       type: String,
       required: true,
     },
-    website_username : {
+    website_username: {
       type: String,
       required: true,
     },
@@ -28,6 +32,12 @@ const userCredentialsSchema = new Schema(
   }
 );
 
-const UserData =
-  models.passwordManager || model("userCredentialsData", userCredentialsSchema);
+let UserData;
+
+if (models.userCredentialsData) {
+  UserData = models.userCredentialsData;
+} else {
+  UserData = model("userCredentialsData", userCredentialsSchema);
+}
+
 export default UserData;
