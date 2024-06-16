@@ -4,7 +4,7 @@ const logout = ()=>{
     try {
         const response = axios("/api/users/logout");
         console.log("Logout Response ====>", response);
-        window.location.href = '/login'
+        window.location.href = '/login';
         toast.success("Logout SuccessFully")
       } catch (error) {
         console.log("Logout Error===> " , error);
