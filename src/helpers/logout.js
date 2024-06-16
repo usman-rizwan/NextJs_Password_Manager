@@ -1,10 +1,10 @@
 import axios from "axios";
 import { toast } from "sonner";
-const logoout = ()=>{
+const logout = ()=>{
     try {
         const response = axios("/api/users/logout");
         console.log("Logout Response ====>", response);
-        window.location = '/login'
+        window.location.href = '/login'
         toast.success("Logout SuccessFully")
       } catch (error) {
         console.log("Logout Error===> " , error);
@@ -12,4 +12,4 @@ const logoout = ()=>{
 
       }
 }
-export default logoout;
+export default logout;
