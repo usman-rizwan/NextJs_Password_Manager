@@ -6,8 +6,19 @@ import { PiEyeClosedBold, PiEyeBold } from "react-icons/pi";
 import { useTheme } from "next-themes";
 
 const PasswordTable = ({ formData }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const [visiblePassword, setvisiblePassword] = useState({});
+  const toggleVisibility = (id) => {
+    console.log("id=====> " , id);
+    setvisiblePassword((prev)=>{
+      console.log("Previous state ====>"  ,prev);
+      const updateState = {
+        ...prev,
+        [id]: !prev[id],
+      }
+      console.log("Updated state ====>"  ,updateState);
+      return updateState;
+    })
+  };
   const { theme } = useTheme();
 
   return (
@@ -27,7 +38,7 @@ const PasswordTable = ({ formData }) => {
             {formData.length > 0 ? (
               formData.map((item, index) => (
                 <tr key={item._id}>
-                  <td className={`px-2 py-2 border text-center capitalize ${theme === 'dark' ? 'border-white' : 'border-gray-200'}`}>{index + 1}</td>
+                  <td className={`px-2 py-2 border text-center capitalize ${theme === 'dark' ? 'border-white' : 'border-gray-200'}`}>{index + 1}.</td>
                   <td className={`px-4 py-2 border text-center ${theme === 'dark' ? 'border-white' : 'border-gray-200'}`}>
                     <div>{item.website_name}</div>
                   </td>
@@ -39,15 +50,17 @@ const PasswordTable = ({ formData }) => {
                       <Input
                         value={item.website_password}
                         placeholder="Enter your password"
-                        type={isVisible ? "text" : "password"}
+                        type={visiblePassword[item._id] ? "text" : "password"}
                         className={`pr-10 border-0 outline-none text-center ${theme === 'dark' ? 'bg-neutral-700 text-white' : 'bg-white text-black'}`}
                       />
                       <button
                         type="button"
-                        onClick={toggleVisibility}
+                        onClick={()=>{
+                          toggleVisibility(item._id)
+                        }}
                         className="absolute inset-y-0 right-0 pr-3 flex items-center focus:outline-none"
                       >
-                        {isVisible ? (
+                        {visiblePassword[item._id] ? (
                           <PiEyeBold className="text-2xl text-gray-500" />
                         ) : (
                           <PiEyeClosedBold className="text-2xl text-gray-500" />
