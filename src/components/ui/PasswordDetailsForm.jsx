@@ -19,8 +19,10 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useTheme } from "next-themes";
 
 const formSchema = z.object({
-  website: z.string().trim().min(3, {
+  website: z.string().trim().min(2, {
     message: "At least 3 characters.",
+  }).max(12,{
+    message: "Maximum 12 characters.",
   }),
   username: z.string().trim().min(3, {
     message: "Username is not valid.",
