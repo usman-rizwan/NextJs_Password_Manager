@@ -24,9 +24,13 @@ const formSchema = z.object({
   }),
   username: z.string().trim().min(3, {
     message: "Username is not valid.",
+  }).max(9,{
+    message: "Username should be less than 10 alphabets.",
   }),
   password: z.string().trim().min(6, {
     message: "Password must be at least 6 characters.",
+  }).max(15 ,{
+    message: "Password should be less than 16 characters.",
   }),
 });
 
