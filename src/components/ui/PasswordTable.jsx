@@ -6,7 +6,7 @@ import { PiEyeClosedBold, PiEyeBold } from "react-icons/pi";
 import { useTheme } from "next-themes";
 import axios from "axios";
 
-const PasswordTable = ({ formData }) => {
+const PasswordTable = ({ formData , onDelete }) => {
   const [visiblePassword, setvisiblePassword] = useState({});
   const { theme } = useTheme();
 
@@ -24,14 +24,7 @@ const PasswordTable = ({ formData }) => {
     });
   };
 
-  // Delete Field
-  const deleteItem = async (id) => {
-    console.log("Delete Item ====>", id);
-    const response = await axios.delete(`api/data/deleteData`, {
-      data: { id },
-    });
-    console.log("Response ====>", response.data);
-  };
+
   return (
     <div className={`container mx-auto mt-8 `}>
       <div className="overflow-x-auto">
@@ -153,7 +146,7 @@ const PasswordTable = ({ formData }) => {
                       variant="outline"
                       size="sm"
                       className="ml-2 bg-red-500 text-white hover:bg-red-600 hover:text-white px-6 py-2"
-                      onClick={() => deleteItem(item._id)}
+                      onClick={() =>onDelete(item._id)}
                     >
                       Delete
                     </Button>

@@ -13,20 +13,19 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(false);
 
   const searchParamsId = searchParams.get("id");
-  
+
   const retrieveDataFromDB = async () => {
     try {
       const response = await axios.get("/api/data/getData", {
         params: { id: searchParamsId },
       });
       console.log("response===>", response);
-      if (response.status === 200 && response.data.data.length > 0 )  {
+      if (response.status === 200 && response.data.data.length > 0) {
         setFormData(response.data.data);
-      } else if(response.data.data.status === 404){
+      } else if (response.data.data.status === 404) {
         toast.error("No data found");
         setLoading(false);
-      }
-       else {
+      } else {
         console.error("Error fetching data", response.data);
       }
     } catch (error) {
@@ -64,7 +63,26 @@ const DashboardPage = () => {
       console.log("error===>", error.message);
     }
   };
-  
+
+  // Delete Field
+  const deleteItem = async (id) => {
+    console.log("Delete Item ====>", id);
+    try {
+      const response = await axios.delete(`api/data/deleteData`, {
+        data: { id },
+      });
+      console.log("Response ====>", response.data);
+      if (response.data.status === 200) {
+        setFormData((prevData) => prevData.filter((item) => item._id !== id));
+        toast.success("Credentials Deleted Successfully");
+      }else{
+        toast.error("Error deleting data");
+      }
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      
+    }
+  };
 
   return (
     <div>
@@ -74,7 +92,7 @@ const DashboardPage = () => {
         loading={loading}
         setLoading={setLoading}
       />
-      <PasswordTable formData={formData} />
+      <PasswordTable formData={formData} onDelete={deleteItem} />
     </div>
   );
 };
