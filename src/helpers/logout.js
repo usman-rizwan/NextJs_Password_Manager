@@ -1,12 +1,19 @@
 import axios from "axios";
 import { toast } from "sonner";
-const logout = ()=>{
+const logout = async ()=>{
     try {
-        const response = axios("/api/users/logout");
+        const response = await axios("/api/users/logout");
         console.log("Logout Response ====>", response);
-        window.location.href = '/login';
-        toast.success("Logout SuccessFully")
-        localStorage.clear()
+        
+        if (response.data.success ===  true) {
+          toast.success("Logged out successfully");
+          localStorage.removeItem('theme');
+           window.location.href = "/login";
+        }else{
+          toast.error("Failed to logout");
+        }
+          
+
       } catch (error) {
         console.log("Logout Error===> " , error);
         toast.error("Error in logout")
