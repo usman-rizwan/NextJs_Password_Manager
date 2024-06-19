@@ -27,16 +27,16 @@ const PasswordTable = ({ formData, onDelete }) => {
   };
 
   return (
-    <div className={`container mx-auto my-8 p-6 rounded-lg shadow-lg ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
+    <div className={`container mx-auto my-8 p-6 rounded-lg  ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
       <div className="overflow-x-auto">
         <Table className="min-w-full divide-y divide-gray-300">
-          <TableHeader className={`${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`}>
+          <TableHeader className={`${theme === "dark" ? "bg-gray-800 " : `bg-black`}`}>
             <TableRow>
-              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>No.</TableHead>
-              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>Website Name</TableHead>
-              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>Username</TableHead>
-              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>Password</TableHead>
-              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>Actions</TableHead>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-100'} uppercase tracking-wider `}>No.</TableHead>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-100'} uppercase tracking-wider `}>Website Name</TableHead>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-100'} uppercase tracking-wider `}>Username</TableHead>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-100'} uppercase tracking-wider `}>Password</TableHead>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-100'} uppercase tracking-wider `}>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className={`${theme === "dark" ? "bg-gray-800" : "bg-white"} divide-y divide-gray-300`}>
