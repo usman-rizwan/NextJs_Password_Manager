@@ -66,7 +66,7 @@ const PasswordDetailsForm = ({ onSubmitForm, loading, setLoading }) => {
 
   return (
     <div className="flex items-center justify-center p-4">
-      <div className={`max-w-md w-full shadow-lg rounded-lg p-6 mt-5 ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-white text-black'}`}>
+      <div className={`max-w-md w-full shadow-lg rounded-lg p-6 mt-5 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
         <h1 className="text-2xl mb-6 font-extrabold">Password Manager</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -77,7 +77,7 @@ const PasswordDetailsForm = ({ onSubmitForm, loading, setLoading }) => {
                 <FormItem>
                   <FormLabel>Website name or URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the website name or URL" {...field} className={theme === 'dark' ? 'bg-neutral-700 text-white' : 'bg-white text-black'} />
+                    <Input placeholder="Enter the website name or URL" {...field} className={theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -91,7 +91,7 @@ const PasswordDetailsForm = ({ onSubmitForm, loading, setLoading }) => {
                   <FormItem className="flex-1">
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your username" {...field} className={theme === 'dark' ? 'bg-neutral-700 text-white' : 'bg-white text-black'} />
+                      <Input placeholder="Enter your username" {...field} className={theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,7 +109,7 @@ const PasswordDetailsForm = ({ onSubmitForm, loading, setLoading }) => {
                           {...field}
                           placeholder="Enter your password"
                           type={isVisible ? "text" : "password"}
-                          className={`pr-10 ${theme === 'dark' ? 'bg-neutral-700 text-white' : 'bg-white text-black'}`}
+                          className={`pr-10 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}
                         />
                         <button
                           type="button"

@@ -1,172 +1,100 @@
 "use client";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { PiEyeClosedBold, PiEyeBold } from "react-icons/pi";
 import { useTheme } from "next-themes";
-import axios from "axios";
+import { Modal } from "@/components/ui/Modal";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table";
 
-const PasswordTable = ({ formData , onDelete }) => {
-  const [visiblePassword, setvisiblePassword] = useState({});
+const PasswordTable = ({ formData, onDelete }) => {
+  const [visiblePassword, setVisiblePassword] = useState({});
   const { theme } = useTheme();
 
-  // Togggle Password
+  // Toggle Password
   const toggleVisibility = (id) => {
-    console.log("id=====> ", id);
-    setvisiblePassword((prev) => {
-      console.log("Previous state ====>", prev);
-      const updateState = {
-        ...prev,
-        [id]: !prev[id],
-      };
-      console.log("Updated state ====>", updateState);
-      return updateState;
-    });
+    setVisiblePassword((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
-
   return (
-    <div className={`container mx-auto mt-8 `}>
+    <div className={`container mx-auto my-8 p-6 rounded-lg shadow-lg ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
       <div className="overflow-x-auto">
-        <table
-          className={`min-w-full ${
-            theme === "dark"
-              ? "bg-neutral-800 border-white"
-              : "bg-white border-gray-200"
-          }`}
-        >
-          <thead>
-            <tr>
-              <th
-                className={`px-2 py-2 border ${
-                  theme === "dark" ? "border-white" : "border-gray-200"
-                }`}
-              >
-                No.
-              </th>
-              <th
-                className={`px-4 py-2 border ${
-                  theme === "dark" ? "border-white" : "border-gray-200"
-                }`}
-              >
-                Website Name
-              </th>
-              <th
-                className={`px-4 py-2 border ${
-                  theme === "dark" ? "border-white" : "border-gray-200"
-                }`}
-              >
-                Username
-              </th>
-              <th
-                className={`px-4 py-2 border ${
-                  theme === "dark" ? "border-white" : "border-gray-200"
-                }`}
-              >
-                Password
-              </th>
-              <th
-                className={`px-4 py-2 border ${
-                  theme === "dark" ? "border-white" : "border-gray-200"
-                }`}
-              >
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table className="min-w-full divide-y divide-gray-300">
+          <TableHeader className={`${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`}>
+            <TableRow>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>No.</TableHead>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>Website Name</TableHead>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>Username</TableHead>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>Password</TableHead>
+              <TableHead className={`px-6 py-3 text-md text-center font-bold ${theme === 'dark' ? 'text-white' :'text-gray-500'} uppercase tracking-wider `}>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody className={`${theme === "dark" ? "bg-gray-800" : "bg-white"} divide-y divide-gray-300`}>
             {formData.length > 0 ? (
               formData.map((item, index) => (
-                <tr key={item._id}>
-                  <td
-                    className={`px-2 py-2 border text-center capitalize ${
-                      theme === "dark" ? "border-white" : "border-gray-200"
-                    }`}
-                  >
-                    {index + 1}.
-                  </td>
-                  <td
-                    className={`px-4 py-2 border text-center ${
-                      theme === "dark" ? "border-white" : "border-gray-200"
-                    }`}
-                  >
-                    <div>{item.website_name}</div>
-                  </td>
-                  <td
-                    className={`px-4 py-2 border text-center ${
-                      theme === "dark" ? "border-white" : "border-gray-200"
-                    }`}
-                  >
-                    {item.website_username}
-                  </td>
-                  <td
-                    className={`px-2 py-2 border ${
-                      theme === "dark" ? "border-white" : "border-gray-200"
-                    }`}
-                  >
+                <TableRow key={item._id} className={`${index % 2 === 0 ? (theme === "dark" ? "bg-gray-700" : "bg-gray-50") : ""}`}>
+                  <TableCell className="px-6 py-4 whitespace-nowrap">{index + 1}.</TableCell>
+                  <TableCell className="px-6 py-4 whitespace-nowrap">{item.website_name}</TableCell>
+                  <TableCell className="px-6 py-4 whitespace-nowrap">{item.website_username}</TableCell>
+                  <TableCell className="px-6 py-4 whitespace-nowrap">
                     <div className="relative">
                       <Input
                         value={item.website_password}
                         placeholder="Enter your password"
                         type={visiblePassword[item._id] ? "text" : "password"}
-                        className={`pr-10 border-0 outline-none text-center ${
-                          theme === "dark"
-                            ? "bg-neutral-700 text-white"
-                            : "bg-white text-black"
+                        className={`pr-10 text-sm border border-gray-300 rounded-md focus:border-indigo-500 focus:ring-indigo-200 focus:ring-opacity-50 ${
+                          theme === "dark" ? "bg-gray-600 text-white" : "bg-white text-black"
                         }`}
                       />
                       <button
                         type="button"
-                        onClick={() => {
-                          toggleVisibility(item._id);
-                        }}
+                        onClick={() => toggleVisibility(item._id)}
                         className="absolute inset-y-0 right-0 pr-3 flex items-center focus:outline-none"
                       >
                         {visiblePassword[item._id] ? (
-                          <PiEyeBold className="text-2xl text-gray-500" />
+                          <PiEyeBold className={`text-xl ${theme === "dark" ? "text-gray-400" : "text-gray-700"}`} />
                         ) : (
-                          <PiEyeClosedBold className="text-2xl text-gray-500" />
+                          <PiEyeClosedBold className={`text-xl ${theme === "dark" ? "text-gray-400" : "text-gray-700"}`} />
                         )}
                       </button>
                     </div>
-                  </td>
-                  <td
-                    className={`px-2 py-2 border text-center ${
-                      theme === "dark" ? "border-white" : "border-gray-200"
-                    }`}
-                  >
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="bg-green-500 text-white px-6 py-2 hover:bg-green-600 hover:text-white"
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="ml-2 bg-red-500 text-white hover:bg-red-600 hover:text-white px-6 py-2"
-                      onClick={() =>onDelete(item._id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
+                  </TableCell>
+                  <TableCell className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex justify-center space-x-2">
+                      <Modal
+                        id={item._id}
+                        website_name={item.website_name}
+                        website_username={item.website_username}
+                        website_password={item.website_password}
+                      />
+                      <Button
+                        size="sm"
+                        className="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md"
+                        onClick={() => onDelete(item._id)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
               ))
             ) : (
-              <tr>
-                <td
-                  colSpan="5"
-                  className={`px-4 py-2 border text-center ${
-                    theme === "dark" ? "border-white" : "border-gray-200"
-                  }`}
-                >
-                  No data available
-                </td>
-              </tr>
+              <TableRow>
+                <TableCell colSpan="5" className="px-6 py-4 text-center">No data available</TableCell>
+              </TableRow>
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
