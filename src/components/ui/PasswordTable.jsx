@@ -91,7 +91,7 @@ const PasswordTable = ({ formData, onDelete ,retrieveDataFromDB }) => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan="5" className="px-6 py-4 text-center">No data available</TableCell>
+                <TableCell colSpan="5" className="px-6 py-4 text-center text-lg font-bold">No data available</TableCell>
               </TableRow>
             )}
           </TableBody>
