@@ -3,7 +3,7 @@ import UserData from "@/db/userCredentialsSchema";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
-// Connect To DataBAse
+// Connect To Database
 connectToDB();
 
 export const POST = async (req) => {
@@ -11,34 +11,38 @@ export const POST = async (req) => {
     const { username, website, password } = await req.json();
     if (!username.trim() || !website.trim() || !password.trim()) {
       return NextResponse.json({
-        message: "Username, Website and Password are required",
+        message: "Username, Website, and Password are required",
         status: 400,
       });
     }
-    const existingEntry = await UserData.findOne({ website_name:website });
-    console.log("existingEntry========>" , existingEntry);
-    if (existingEntry) {
-      console.log("End response ==========>>><,");
-      return NextResponse.json({
-        message: "Field already exists",
-        status: 400,
-      });
-    }
+
+    // Get token from cookies
     const getToken = req.cookies.get("token");
-    // console.log('getToken--->' , getToken.value);
     if (!getToken) {
-      return NextResponse.json(
-        {
-          status:401,
-          message: "Token not found",
-          error: "Unauthorized",
-        },
-      );
+      return NextResponse.json({
+        status: 401,
+        message: "Token not found",
+        error: "Unauthorized",
+      });
     }
 
+    // Verify and decode token
     const decodedToken = jwt.verify(getToken.value, process.env.JWT_SECRET);
-    // console.log(".decodeToken.....", decodeToken);
 
+    // Check if website_name already exists for the current user
+    const existingEntry = await UserData.findOne({
+      ownerId: decodedToken.id,
+      website_name: website,
+    });
+
+    if (existingEntry) {
+      return NextResponse.json({
+        message: "Field already exists for this user",
+        status: 400,
+      });
+    }
+
+    // Create new UserData document
     const saveUserData = new UserData({
       ownerId: decodedToken.id,
       ownerName: decodedToken.username,
@@ -46,16 +50,16 @@ export const POST = async (req) => {
       website_name: website,
       website_password: password,
     });
-    const response = await saveUserData.save();
-    console.log("Usere Data save ===>", response);
 
-    return NextResponse.json(
-      {
-        status:200,
-        message: "Data added to db",
-        response,
-      },
-    );
+    // Save new UserData document
+    const response = await saveUserData.save();
+    console.log("User Data saved ===>", response);
+
+    return NextResponse.json({
+      status: 200,
+      message: "Data added to db",
+      response,
+    });
   } catch (error) {
     console.log(error);
     return NextResponse.json({

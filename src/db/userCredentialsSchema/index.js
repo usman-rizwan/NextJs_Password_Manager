@@ -1,5 +1,3 @@
-// db/userCredentialsSchema.js
-
 import mongoose from "mongoose";
 
 const { Schema, model, models } = mongoose;
@@ -25,6 +23,10 @@ const userCredentialsSchema = new Schema(
     website_password: {
       type: String,
       required: true,
+    },
+    isEdited: {
+      type: Boolean,
+      default: false,
     },
   },
   {
