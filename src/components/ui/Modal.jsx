@@ -162,30 +162,36 @@ function UpdationForm({
     },
   });
 
-
   const onSubmit = async (values) => {
     try {
       console.log(values);
+      const valuesChanged =
+        values.website == website_name ||
+        values.username == website_username ||
+        values.password == website_password;
+      if (valuesChanged) {
+        toast.info("No changes detected");
+        return;
+      }
       const response = await axios.patch("/api/data/updateData", {
-        data: { ...values, id }, 
+        data: { ...values, id },
       });
-  
+
       if (response.data.status === 200) {
         toast.success("Document Updated Successfully");
         onClose();
       } else if (response.data.status === 404) {
         toast.error("Failed to Update Document");
-      }else{
+      } else {
         toast.error("Something went wrong");
       }
-  
+
       console.log(response);
     } catch (error) {
       console.error("Form submission error:", error);
       toast.error("An error occurred while updating the document");
     }
   };
-  
 
   return (
     <Form {...form}>
@@ -195,7 +201,7 @@ function UpdationForm({
       >
         <div className="grid gap-2">
           <span className="text-sm text-gray-600 font-medium mb-2">
-             ID: {id}
+            ID: {id}
           </span>
           <FormField
             control={form.control}
