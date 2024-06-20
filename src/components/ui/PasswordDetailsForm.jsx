@@ -21,12 +21,12 @@ import { useTheme } from "next-themes";
 const formSchema = z.object({
   website: z.string().trim().min(2, {
     message: "At least 3 characters.",
-  }).max(12,{
+  }).max(15,{
     message: "Maximum 12 characters.",
   }),
   username: z.string().trim().min(3, {
     message: "Username is not valid.",
-  }).max(9,{
+  }).max(12,{
     message: "Username should be less than 10 alphabets.",
   }),
   password: z.string().trim().min(6, {
