@@ -43,16 +43,16 @@ const PasswordTable = ({ formData, onDelete ,retrieveDataFromDB }) => {
             {formData.length > 0 ? (
               formData.map((item, index) => (
                 <TableRow key={item._id} className={`${index % 2 === 0 ? (theme === "dark" ? "bg-gray-700" : "bg-gray-50") : ""}`}>
-                  <TableCell className="px-6 py-4 whitespace-nowrap text-center">{index + 1}.</TableCell>
-                  <TableCell className="px-6 py-4 whitespace-nowrap text-center" >{item.website_name}</TableCell>
-                  <TableCell className="px-6 py-4 whitespace-nowrap text-center">{item.website_username}</TableCell>
-                  <TableCell className="px-6 py-4 whitespace-nowrap text-center">
+                  <TableCell className="px-6 py-4 whitespace-nowrap text-center cursor-pointer">{index + 1}.</TableCell>
+                  <TableCell className="px-6 py-4 whitespace-nowrap text-center cursor-pointer" >{item.website_name}</TableCell>
+                  <TableCell className="px-6 py-4 whitespace-nowrap text-center cursor-pointer">{item.website_username}</TableCell>
+                  <TableCell className="px-6 py-4 whitespace-nowrap text-center cursor-pointer">
                     <div className="relative">
                       <Input
                         value={item.website_password}
                         placeholder="Enter your password"
                         type={visiblePassword[item._id] ? "text" : "password"}
-                        className={`pr-5 text-sm border text-center border-gray-300 rounded-md focus:border-indigo-500 focus:ring-indigo-200 focus:ring-opacity-50 ${
+                        className={`pr-5 text-sm border text-center cursor-pointer border-gray-300 rounded-md focus:border-indigo-500 focus:ring-indigo-200 focus:ring-opacity-50 ${
                           theme === "dark" ? "bg-gray-600 text-white" : "bg-white text-black"
                         }`}
                       />
@@ -85,6 +85,9 @@ const PasswordTable = ({ formData, onDelete ,retrieveDataFromDB }) => {
                       >
                         Delete
                       </Button>
+                      <span className="flex justify-center items-center select-none ">
+                        {item.isEdited ? "(Edited)" : ""}
+                      </span>
                     </div>
                   </TableCell>
                 </TableRow>

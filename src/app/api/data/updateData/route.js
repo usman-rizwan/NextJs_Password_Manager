@@ -20,6 +20,7 @@ export const PATCH = async (req) => {
         website_name: website,
         website_username: username,
         website_password: password,
+        isEdited : true
       },
       { new: true, runValidators: true }
     );
