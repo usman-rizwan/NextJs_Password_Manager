@@ -111,8 +111,7 @@ const LoginForm = () => {
             />
             <div>
               <span>
-                Don&apos;t have an account?
-                <Link
+                Don&apos;t have an account?  <Link
                   href="/signup"
                   className="text-blue-500 font-bold text-lg"
                 >
