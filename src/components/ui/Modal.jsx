@@ -162,11 +162,6 @@ function UpdationForm({
     },
   });
 
-  useEffect(() => {
-    form.setValue("website", website_name || "");
-    form.setValue("username", website_username || "");
-    form.setValue("password", website_password || "");
-  }, [website_name, website_username, website_password]);
 
   const onSubmit = async (values) => {
     try {
