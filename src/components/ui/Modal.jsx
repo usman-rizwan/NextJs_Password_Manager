@@ -95,7 +95,7 @@ export function Modal({
           <DialogHeader>
             <DialogTitle>Edit data</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your document here. Click save when you're done.
             </DialogDescription>
           </DialogHeader>
           <UpdationForm
@@ -208,8 +208,8 @@ function UpdationForm({
         className={cn("grid items-start gap-4")}
       >
         <div className="grid gap-2">
-          <span className="text-sm text-gray-600 font-medium mb-2">
-            ID: {id}
+          <span className="text-sm text-gray-500 font-medium mb-2 select-none">
+           Document ID: {id}
           </span>
           <FormField
             control={form.control}
