@@ -6,7 +6,6 @@ const logout = async ()=>{
         console.log("Logout Response ====>", response);
         
         if (response.data.success ===  true) {
-          localStorage.removeItem('theme');
            window.location.href = "/login";
           toast.success("Logout SuccessFully")
         }else{
