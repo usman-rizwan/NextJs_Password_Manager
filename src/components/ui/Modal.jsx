@@ -71,6 +71,7 @@ export function Modal({
   website_name,
   website_username,
   website_password,
+  retrieveDataFromDB
 }) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -103,6 +104,7 @@ export function Modal({
             website_username={website_username}
             website_password={website_password}
             onClose={handleClose}
+            retrieveDataFromDB={retrieveDataFromDB}
           />
         </DialogContent>
       </Dialog>
@@ -131,6 +133,7 @@ export function Modal({
           website_name={website_name}
           website_username={website_username}
           website_password={website_password}
+          retrieveDataFromDB={retrieveDataFromDB}
           onClose={handleClose}
         />
         <DrawerFooter className="pt-2">
@@ -149,6 +152,7 @@ function UpdationForm({
   website_username,
   website_password,
   onClose,
+  retrieveDataFromDB
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -183,6 +187,7 @@ function UpdationForm({
       if (response.data.status === 200) {
         toast.success("Document Updated Successfully");
         onClose();
+        await retrieveDataFromDB()
       } else if (response.data.status === 404) {
         toast.error("Failed to Update Document");
       } else {

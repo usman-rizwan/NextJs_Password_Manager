@@ -14,7 +14,7 @@ import {
   TableRow
 } from "@/components/ui/table";
 
-const PasswordTable = ({ formData, onDelete }) => {
+const PasswordTable = ({ formData, onDelete ,retrieveDataFromDB }) => {
   const [visiblePassword, setVisiblePassword] = useState({});
   const { theme } = useTheme();
 
@@ -76,6 +76,7 @@ const PasswordTable = ({ formData, onDelete }) => {
                         website_name={item.website_name}
                         website_username={item.website_username}
                         website_password={item.website_password}
+                        retrieveDataFromDB={retrieveDataFromDB}
                       />
                       <Button
                         size="sm"

@@ -92,7 +92,7 @@ const DashboardPage = () => {
         loading={loading}
         setLoading={setLoading}
       />
-      <PasswordTable formData={formData} onDelete={deleteItem} />
+      <PasswordTable formData={formData} onDelete={deleteItem} retrieveDataFromDB={retrieveDataFromDB} />
     </div>
   );
 };
