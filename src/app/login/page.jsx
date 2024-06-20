@@ -18,6 +18,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTheme } from "next-themes";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -31,6 +32,8 @@ const formSchema = z.object({
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { theme } = useTheme();
+  
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,8 +67,8 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4 ">
-      <div className="max-w-md w-full bg-white shadow-md rounded-lg p-6">
+    <div className={`flex min-h-screen items-center justify-center p-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'}`}>
+      <div className={`max-w-md w-full shadow-md rounded-lg p-6 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
         <h1 className="text-2xl mb-6 font-extrabold">Login Form</h1>
         <Form {...form}>
           <form
@@ -79,7 +82,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your email address" {...field} />
+                    <Input placeholder="Enter your email address" {...field} className={`${theme === 'dark' ? 'bg-gray-700 text-white' : ''}`} />
                   </FormControl>
                   <FormDescription>
                     This is your public display email address.
@@ -99,6 +102,7 @@ const LoginForm = () => {
                       placeholder="Enter your password"
                       {...field}
                       type="password"
+                      className={`${theme === 'dark' ? 'bg-gray-700 text-white' : ''}`}
                     />
                   </FormControl>
                   <FormMessage />
