@@ -165,18 +165,21 @@ function UpdationForm({
   const onSubmit = async (values) => {
     try {
       console.log(values);
-      const valuesChanged =
-        values.website == website_name ||
-        values.username == website_username ||
-        values.password == website_password;
-      if (valuesChanged) {
+  
+      let valuesChanged =
+        values.website !== website_name ||
+        values.username !== website_username ||
+        values.password !== website_password;
+  
+      if (!valuesChanged) {
         toast.info("No changes detected");
         return;
       }
+  
       const response = await axios.patch("/api/data/updateData", {
         data: { ...values, id },
       });
-
+  
       if (response.data.status === 200) {
         toast.success("Document Updated Successfully");
         onClose();
@@ -185,14 +188,14 @@ function UpdationForm({
       } else {
         toast.error("Something went wrong");
       }
-
+  
       console.log(response);
     } catch (error) {
       console.error("Form submission error:", error);
       toast.error("An error occurred while updating the document");
     }
   };
-
+  
   return (
     <Form {...form}>
       <form
