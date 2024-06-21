@@ -43,7 +43,7 @@ const DashboardPage = () => {
     try {
       setLoading(true);
       // console.log("Form data received:", data);
-      const response = await axios.post("/api/data/userData", data);
+      const response = await axios.post("/api/data/addData", data);
       // console.log("User Data response == => ", response);
       if (response.data.status === 200) {
         toast.success("Credentials Saved In DB Successfully");
