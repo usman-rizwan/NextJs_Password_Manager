@@ -52,8 +52,8 @@ const formSchema = z.object({
     .min(3, {
       message: "Username is not valid.",
     })
-    .max(9, {
-      message: "Username should be less than 10 alphabets.",
+    .max(12, {
+      message: "Username should be less than 12 alphabets.",
     }),
   password: z
     .string()
@@ -168,7 +168,7 @@ function UpdationForm({
 
   const onSubmit = async (values) => {
     try {
-      console.log(values);
+      // console.log(values);
   
       let valuesChanged =
         values.website !== website_name ||
@@ -194,7 +194,7 @@ function UpdationForm({
         toast.error("Something went wrong");
       }
   
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.error("Form submission error:", error);
       toast.error("An error occurred while updating the document");

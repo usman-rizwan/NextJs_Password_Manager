@@ -46,7 +46,7 @@ const LoginForm = () => {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", values);
-      console.log("response===>", response.data);
+      // console.log("response===>", response.data);
       form.reset({ email: "" }, { password: "" });
       if (response.data.status === 200) {
         const token = response.data.token;
@@ -56,12 +56,12 @@ const LoginForm = () => {
       } else {
         setLoading(false);
         toast.error("Incorrect Credentials");
-        console.log("error===>", response.data);
+        // console.log("error===>", response.data);
       }
     } catch (error) {
       setLoading(false);
       toast.error("Incorrect Credentials");
-      console.log("error===>", error);
+      // console.log("error===>", error);
     }
     // console.log(values);
   }

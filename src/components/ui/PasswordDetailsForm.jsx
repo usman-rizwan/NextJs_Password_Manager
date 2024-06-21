@@ -27,7 +27,7 @@ const formSchema = z.object({
   username: z.string().trim().min(3, {
     message: "Username is not valid.",
   }).max(12,{
-    message: "Username should be less than 10 alphabets.",
+    message: "Username should be less than 12 alphabets.",
   }),
   password: z.string().trim().min(6, {
     message: "Password must be at least 6 characters.",
@@ -53,7 +53,7 @@ const PasswordDetailsForm = ({ onSubmitForm, loading, setLoading }) => {
 
   const onSubmit = async (values) => {
     try {
-      console.log(values);
+      // console.log(values);
       if (onSubmitForm) {
         onSubmitForm(values);
         form.reset({ website: "" }, { username: "" }, { password: "" });

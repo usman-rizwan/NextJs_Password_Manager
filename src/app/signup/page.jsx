@@ -29,7 +29,7 @@ const formSchema = z.object({
   }),
   password: z.string().trim().min(6, {
     message: "Password must be at least 6 characters.",
-  }),
+  } ),
 });
 
 const SignupForm = () => {
@@ -49,7 +49,7 @@ const SignupForm = () => {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", values);
-      console.log("response===>", response.data);
+      // console.log("response===>", response.data);
       if (response.data.status === 200) {
         const token = response.data.token;
         toast.success("User created successfully");
@@ -57,13 +57,13 @@ const SignupForm = () => {
         router.push(`/dashboard?id=${token}`);
       } else {
         toast.error("Error creating user");
-        console.log("error===>", response.data.error);
+        // console.log("error===>", response.data.error);
         setLoading(false);
       }
     } catch (error) {
       setLoading(false);
       toast.error("Error creating user");
-      console.log("error===>", error.message);
+      // console.log("error===>", error.message);
     }
     form.reset({ email: "", username: "", password: "" });
   }
