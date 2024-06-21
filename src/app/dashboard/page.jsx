@@ -37,7 +37,7 @@ const DashboardPage = () => {
     if (searchParamsId) {
       retrieveDataFromDB();
     }
-  }, [searchParamsId]);
+  }, []);
 
   const handleFormSubmit = async (data) => {
     try {
