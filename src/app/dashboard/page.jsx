@@ -68,7 +68,7 @@ const DashboardPage = () => {
   const deleteItem = async (id) => {
     // console.log("Delete Item ====>", id);
     try {
-      const response = await axios.delete(`api/data/deleteData`, {
+      const response = await axios.delete(`/api/data/deleteData`, {
         data: { id },
       });
       // console.log("Response ====>", response.data);
