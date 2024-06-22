@@ -21,7 +21,7 @@ const DashboardPageContent  = () => {
       const response = await axios.get("/api/data/getData", {
         params: { id: searchParamsId },
       });
-      // console.log("response===>", response);
+      console.log("response===>", response);
       if (response.status === 200 && response.data.data.length > 0) {
         console.log("data recieved");
         setFormData(response.data.data);
