@@ -16,30 +16,27 @@ const DashboardPageContent  = () => {
 
   const retrieveDataFromDB = async () => {
     try {
-      console.log("Requsest for data ==>");
-      console.log(searchParams);
+      // console.log(searchParams);
       const response = await axios.get("/api/data/getData", {
         params: { id: searchParamsId },
       });
-      console.log("response===>", response);
+      // console.log("response===>", response);
       if (response.status === 200 && response.data?.data?.length > 0) {
-        console.log("data recieved");
         setFormData(response.data.data);
-        console.log(response.data.data);
+        // console.log(response.data.data);
       } else if (response.data.data.status === 404) {
         toast.error("No data found");
         setLoading(false);
       } else {
-        console.error("Error fetching data", response.data.error);
+         console.error("Error fetching data", response.data.error);
       }
     } catch (error) {
-      console.error("Error fetching data", error.message);
+       console.error("Error fetching data", error.message);
     }
   };
 
   useEffect(() => {
     if (searchParamsId) {
-      console.log("Get data ===>");
       retrieveDataFromDB();
     }
   }, [searchParamsId]);
