@@ -85,8 +85,8 @@ const PasswordTable = ({ formData, onDelete ,retrieveDataFromDB }) => {
                       >
                         Delete
                       </Button>
-                      <span className="flex justify-center items-center select-none ">
-                        {item.isEdited ? "(Edited)" : ""}{" "}
+                      <span className={`flex justify-center items-center select-none ${item.isEdited ? "visible" :"invisible"}   `}>
+                        {/* {item.isEdited ? "(Edited)" : ""}{" "} */}  (Edited)
                       </span>
                     </div>
                   </TableCell>
