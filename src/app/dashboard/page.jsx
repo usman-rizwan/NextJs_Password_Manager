@@ -17,6 +17,7 @@ const DashboardPageContent  = () => {
   const retrieveDataFromDB = async () => {
     try {
       console.log("Requsest for data ==>");
+      console.log(searchParams);
       const response = await axios.get("/api/data/getData", {
         params: { id: searchParamsId },
       });
