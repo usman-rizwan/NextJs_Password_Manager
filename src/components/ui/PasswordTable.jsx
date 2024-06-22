@@ -50,6 +50,7 @@ const PasswordTable = ({ formData, onDelete ,retrieveDataFromDB }) => {
                     <div className="relative">
                       <Input
                         value={item.website_password}
+                         readOnly
                         placeholder="Enter your password"
                         type={visiblePassword[item._id] ? "text" : "password"}
                         className={`pr-5 text-sm border text-center cursor-pointer border-gray-300 rounded-md focus:border-indigo-500 focus:ring-indigo-200 focus:ring-opacity-50 ${
