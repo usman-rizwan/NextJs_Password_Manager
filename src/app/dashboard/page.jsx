@@ -22,7 +22,7 @@ const DashboardPageContent  = () => {
         params: { id: searchParamsId },
       });
       console.log("response===>", response);
-      if (response.status === 200 && response.data.data.length > 0) {
+      if (response.status === 200 && response.data?.data?.length > 0) {
         console.log("data recieved");
         setFormData(response.data.data);
         console.log(response.data.data);
@@ -30,7 +30,7 @@ const DashboardPageContent  = () => {
         toast.error("No data found");
         setLoading(false);
       } else {
-        console.error("Error fetching data", response.data);
+        console.error("Error fetching data", response.data.error);
       }
     } catch (error) {
       console.error("Error fetching data", error.message);

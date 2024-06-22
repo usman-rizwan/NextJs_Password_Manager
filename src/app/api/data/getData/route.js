@@ -6,7 +6,8 @@ import { connectToDB } from "@/db/dbConfig";
 connectToDB();
 export const GET = async (req) => {
   try {
-    const url = new URL(req.url);
+    const url =req.nextUrl;
+    console.log("url ==> " ,url);
     const searchParamsId = url.searchParams.get("id");
 
     console.log("Received ID:===>>>>>>", searchParamsId);
