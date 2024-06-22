@@ -25,6 +25,7 @@ const DashboardPageContent  = () => {
       if (response.status === 200 && response.data.data.length > 0) {
         console.log("data recieved");
         setFormData(response.data.data);
+        console.log("formData===>" ,formData);
       } else if (response.data.data.status === 404) {
         toast.error("No data found");
         setLoading(false);

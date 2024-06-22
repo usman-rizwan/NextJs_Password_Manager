@@ -9,9 +9,9 @@ export const GET = async (req) => {
     const url = new URL(req.url);
     const searchParamsId = url.searchParams.get("id");
 
-    // console.log("Received ID:===>>>>>>", searchParamsId);
+    console.log("Received ID:===>>>>>>", searchParamsId);
 
-    // console.log("cokkiees Token" , req.cookies.get('token').value);
+    console.log("cokkiees Token" , req.cookies.get('token').value);
 
     const tokenCookie = req.cookies.get("token");
     const getIdFromToken = tokenCookie ? tokenCookie.value : null;
@@ -23,7 +23,7 @@ export const GET = async (req) => {
     const token = searchParamsId || getIdFromToken;
     const verifyUserToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = verifyUserToken.id;
-  //  console.log("userId===>", userId);  
+   console.log("userId===>", userId);  
 
    const getUserData = await UserData.find({ ownerId: userId });
    console.log("getUserData===>", getUserData);
