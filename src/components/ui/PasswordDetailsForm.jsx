@@ -13,8 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { useRouter } from "next/navigation"; 
+import { useState } from "react"; 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useTheme } from "next-themes";
 
@@ -39,7 +38,6 @@ const formSchema = z.object({
 const PasswordDetailsForm = ({ onSubmitForm, loading, setLoading }) => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const router = useRouter();
   const { theme } = useTheme();
 
   const form = useForm({

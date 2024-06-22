@@ -2,12 +2,12 @@
 import Navbar from "@/components/ui/Navbar";
 import PasswordDetailsForm from "@/components/ui/PasswordDetailsForm";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import PasswordTable from "@/components/ui/PasswordTable";
 
-const DashboardPage = () => {
+const DashboardPageContent  = () => {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ const DashboardPage = () => {
     if (searchParamsId) {
       retrieveDataFromDB();
     }
-  }, []);
+  }, [searchParamsId]);
 
   const handleFormSubmit = async (data) => {
     try {
@@ -94,6 +94,13 @@ const DashboardPage = () => {
       />
       <PasswordTable formData={formData} onDelete={deleteItem} retrieveDataFromDB={retrieveDataFromDB} />
     </div>
+  );
+};
+const DashboardPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardPageContent />
+    </Suspense>
   );
 };
 
