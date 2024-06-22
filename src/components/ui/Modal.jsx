@@ -43,7 +43,7 @@ const formSchema = z.object({
     .min(3, {
       message: "At least 3 characters.",
     })
-    .max(12, {
+    .max(15, {
       message: "Maximum 12 characters.",
     }),
   username: z
