@@ -16,11 +16,13 @@ const DashboardPageContent  = () => {
 
   const retrieveDataFromDB = async () => {
     try {
+      console.log("Requsest for data ==>");
       const response = await axios.get("/api/data/getData", {
         params: { id: searchParamsId },
       });
       // console.log("response===>", response);
       if (response.status === 200 && response.data.data.length > 0) {
+        console.log("data recieved");
         setFormData(response.data.data);
       } else if (response.data.data.status === 404) {
         toast.error("No data found");
@@ -35,6 +37,7 @@ const DashboardPageContent  = () => {
 
   useEffect(() => {
     if (searchParamsId) {
+      console.log("Get data ===>");
       retrieveDataFromDB();
     }
   }, [searchParamsId]);
