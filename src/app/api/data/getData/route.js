@@ -8,19 +8,19 @@ connectToDB();
 
 export const GET = async (req) => {
   try {
-    const url = req.nextUrl;
-    const searchParamsId = url.searchParams.get('id');
+    // const url = req.nextUrl;
+    // const searchParamsId = url.searchParams.get('id');
     
-    console.log('Received ID:===>>>>>>', searchParamsId);
+    // console.log('Received ID:===>>>>>>', searchParamsId);
     
     const tokenCookie = cookies().get('token');
     const getIdFromToken = tokenCookie ? tokenCookie.value : null;
 
-    if (!searchParamsId && !getIdFromToken) {
+    if (!getIdFromToken) {
       return NextResponse.json({ status: 400, message: 'ID is required' });
     }
 
-    const token = searchParamsId || getIdFromToken;
+    const token = getIdFromToken;
     const verifyUserToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = verifyUserToken.id;
     console.log('userId===>', userId);  
